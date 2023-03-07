@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do Lists - Five</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container" x-data="todoApp()">
+      <h2 class="title">Todo</h2>
+
+      <div class="input-area">
+        <input
+          type="text"
+          id="list"
+          class="form-control"
+          x-model="message"
+          @keyup.enter="addTodo"
+        />
+        <button class="btn plus-btn" @click="addTodo">+</button>
+      </div>
+
+      <div class="filter">
+        <button type="button" id="all" class="action-btn" @click="showAll">
+          All
+        </button>
+        <button
+          type="button"
+          id="notdone"
+          class="action-btn"
+          @click="showActive"
+        >
+          Active
+        </button>
+        <button
+          type="button"
+          id="done"
+          class="action-btn"
+          @click="showCompleted"
+        >
+          Completed
+        </button>
+      </div>
+
+      <ul class="list-group">
+        <template x-for="data in datas">
+          <li class="list-group-item">
+            <input
+              type="checkbox"
+              x-model="data.status"
+              @click="check(event.target,data.id)"
+            />
+            <span
+              :class="data.status ? 'completed text context' : 'text context' "
+              x-text="data.text"
+              @dblclick="editfun(data.id)"
+            ></span>
+            <div class="editinputs getallinputs">
+              <input
+                type="text"
+                :id="`task_edit-${data.id}`"
+                class="form-control-edit"
+                x-model="data.text"
+                @keyup.enter="updatefun(data.id)"
+              />
+            </div>
+            <span @click="del(data.id)" id="remove">&times;</span>
+          </li>
+        </template>
+      </ul>
+
+      <p><span id="zero" x-text="leftItem"></span> items left</p>
+      <div class="filter-two">
+        <button
+          type="button"
+          id="checkAll"
+          class="action-btn done"
+          @click="checkAll(event.target)"
+        >
+          Check All
+        </button>
+        <button
+          type="button"
+          id="cleardone"
+          class="action-btn"
+          @click="clearCompleted"
+        >
+          Clear Completed
+        </button>
+      </div>
+    </div>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
