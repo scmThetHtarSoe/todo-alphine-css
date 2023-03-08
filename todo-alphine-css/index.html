@@ -55,7 +55,7 @@
             <span
               :class="data.status ? 'completed text context' : 'text context' "
               x-text="data.text"
-              @dblclick="editfun(data.id)"
+              @dblclick="editfun(event.target,data.id)"
             ></span>
             <div class="editinputs getallinputs">
               <input
@@ -63,7 +63,7 @@
                 :id="`task_edit-${data.id}`"
                 class="form-control-edit"
                 x-model="data.text"
-                @keyup.enter="updatefun(data.id)"
+                @keyup.enter="updatefun(event.target,data.id)"
               />
             </div>
             <span @click="del(data.id)" id="remove">&times;</span>
